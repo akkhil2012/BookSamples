@@ -1,0 +1,14 @@
+What this script does fundamentally
+It defines a tiny tenant-scoped “copilot” workflow.
+DOCUMENT_STORE is a shared in-memory dataset with text entries tagged by tenant_id.
+retrieve(tenant_id, query):
+filters documents to only those belonging to that tenant
+scores them by keyword overlap with the question
+returns the top k matching text snippets
+tenant_copilot(tenant_id, question):
+builds a prompt with the retrieved tenant-specific context
+calls chat(...) from openrouter_client
+asks the model to answer only from that context or say “I don’t know”
+The __main__ block:
+asks the same question for two tenants, acme and globex
+prints two different grounded answers
